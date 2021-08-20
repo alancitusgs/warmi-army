@@ -1,0 +1,81 @@
+{
+  "menu": [
+    {
+      "url": "home",
+      "name": "Home",
+      "icon": "home",
+      "slug": "home"
+    },
+  
+    {
+      "url": "layouts/empty",
+      "name": "User",
+      "icon": "user",
+      "slug": "app-user"
+    },
+
+    {
+      "url": "app/circle",
+      "name": "Mis círculos",
+      "icon": "check-circle",
+      "slug": "app-user"
+    },
+
+ 
+    {
+      "name": "Explorar círculos",
+      "icon": "check-circle",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "capacitacion",
+          "name": "Capacitación laboral",
+          "icon": "circle",
+          "slug": "app-user-list"
+        },
+        {
+          "url": "empresarial",
+          "name": "Empresarial",
+          "icon": "circle",
+          "slug": "app-user-view"
+        },
+        {
+          "url": "app/user/edit",
+          "name": "Warmi productiva",
+          "icon": "circle",
+          "slug": "app-user-edit"
+        }
+      ]
+    },
+
+    {
+      "url": "yowarmi",
+      "name": "Yo Warmi",
+      "icon": "check-circle",
+      "slug": "app-user"
+    },
+
+    {
+      "url": "app/chat",
+      "name": "Invoice",
+      "icon": "file-text",
+      "slug": "app-chat"
+    },
+
+    {
+      "url": "app/chat",
+      "name": "Chat",
+      "icon": "message-square",
+      "slug": "app-chat"
+    },
+    {
+      "url": "app/email",
+      "name": "Email",
+      "icon": "mail",
+      "slug": "app-email"
+    }
+
+
+
+  ]
+}
