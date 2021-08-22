@@ -39,7 +39,7 @@
             </div>
           
             <div class="form-group">
-              <label for="select-country1">Círculo de Integración</label>
+              <label for="select-country1">Círculo de Integración2</label>
               <select class="form-control" id="select-country1" required>
                 <option value="">Seleccione círculo</option>
                 <option value="usa">Empresarial</option>
@@ -78,7 +78,7 @@
             <div class="form-group">
               <label for="customFile1">Logo</label>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile1" required />
+                <input type="file" class="custom-file-input" id="image" name="image" required />
                 <label class="custom-file-label" for="customFile1">Escoga un logo</label>
               </div>
             </div>

@@ -83,7 +83,7 @@ class ProjectController extends Controller
             'name' => 'required',
             'description' => 'required',
             'goals' => 'required',
-         //   'image' => 'required|image',
+         'image' => 'required|image',
           'user_id' => 'required'
 
 
@@ -91,11 +91,11 @@ class ProjectController extends Controller
         ]);
 
         // obtener la ruta de la imagen
-      //  $ruta_imagen = $request['image']->store('upload-project', 'public');
+       $ruta_imagen = $request['image']->store('upload-project', 'public');
 
         // Resize de la imagen
-    //    $img = Image::make( public_path("storage/{$ruta_imagen}"))->fit(1000, 550);
-     //   $img->save();
+      $img = Image::make( public_path("storage/{$ruta_imagen}"))->fit(1000, 550);
+        $img->save();
 
         // almacenar en la bd (sin modelo)
         // DB::table('recetas')->insert([
@@ -111,7 +111,9 @@ class ProjectController extends Controller
              'name' => $data['name'],
              'description' => $data['description'],
              'goals' => $data['goals'],
-             'user_id' => Auth::user()->id
+             'image' => $data['image'],
+           'image' => $ruta_imagen,
+           // 'user_id' => Auth::user()->id
             //'user_id' => $data['user_id']
              
         ]);
@@ -132,6 +134,8 @@ class ProjectController extends Controller
         // Redireccionar
       //  return redirect()->action('RecetaController@index');
       return view('content/home');
+
+    
     }
 
     /**
