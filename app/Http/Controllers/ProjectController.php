@@ -23,36 +23,51 @@ class ProjectController extends Controller
     //
     public function index()
     {
-        
-        $projects = Project::latest()->get();
-
-        /*
-        // Mostrar las recetas por cantidad de votos
-        // $votadas = Receta::has('likes', '>', 0)->get();
-        $votadas = Receta::withCount('likes')->orderBy('likes_count', 'desc')->take(3)->get();
-
-        // Obtener las recetas mas nuevas
-        $nuevas = Receta::latest()->take(6)->get();
-
-        // obtener todas las categorias
-        $categorias = CategoriaReceta::all();
-        // return $categorias;
-
-        // Agrupar las recetas por categoria
-        $recetas = [];
-
-        foreach($categorias as $categoria) {
-            $recetas[ Str::slug( $categoria->nombre ) ][] = Receta::where('categoria_id', $categoria->id )->take(3)->get();
-      
-      
-      */
-      
-       // }
-
-        // return $recetas;
+    
+      /*
+        $articles = Project::get()
+                    -> where(auth()->user(),id);
 
 
-        //return view('content.capacitacion', compact('projects'));
+
+        return view('projects/index', [
+            'articles' => $articles
+        ]);
+        */
+
+        $projects= DB::table('projects')
+        ->select('projects.id AS project_id',
+                    'projects.name AS project_name',
+                    'projects.shortName AS project_shortName',
+                    'projects.description AS project_description',
+                    'projects.goals AS project_goals',
+                    'projects.participants AS project_participants',
+                'circles.name AS circle_name',
+                'users.name AS author_name',
+                'users.lastName AS author_lastName')
+        ->join('project_user', 'project_user.project_id', '=', 'projects.id')
+       ->leftJoin('users', 'users.id', '=', 'projects.user_id')
+        ->leftJoin('circle_project','circle_project.project_id','=','projects.id')
+        ->leftJoin('circles','circles.id','=','circle_project.circle_id')
+        ->where('project_user.user_id',auth()->user()->id)
+       ->get();
+
+         
+       $usersProjects = DB::select('select pp.project_id,u.id,u.name,u.lastName,u.image from 
+       (select pu.project_id 
+       from project_user pu
+       where pu.user_id = '.auth()->user()->id.'
+       group by pu.project_id) pp
+       left join project_user pu2 on pu2.project_id = pp.project_id
+       left join users u on u.id = pu2.user_id');
+
+      /* return view('projects/index', [
+        'articles' => $articles
+    ]);
+*/
+
+
+return view('projects/index')->with(compact('projects','usersProjects'));
     }
 
 
@@ -118,22 +133,7 @@ class ProjectController extends Controller
              
         ]);
 
-        // almacenar en la BD (con modelo)
-
-        /*
-        auth()->user()->project()->create([
-             'name' => $data['name'],
-             'description' => $data['description'],
-             'goals' => $data['goals'],
-             'image' => $ruta_imagen,
-             'user_id' => $data['user_id']
-        ]);
-*/
-
-
-        // Redireccionar
-      //  return redirect()->action('RecetaController@index');
-      return view('content/home');
+     return redirect()->action([ProjectController::class, 'index']);
 
     
     }

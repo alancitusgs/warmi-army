@@ -8,14 +8,14 @@
     },
   
     {
-      "url": "layouts/empty",
+      "url": "projects/create",
       "name": "User",
       "icon": "user",
       "slug": "app-user"
     },
 
     {
-      "url": "app/circle",
+      "url": "proyectos",
       "name": "Mis círculos",
       "icon": "check-circle",
       "slug": "app-user"

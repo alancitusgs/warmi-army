@@ -21,7 +21,7 @@ use App\Http\Controllers\LanguageController;
 Auth::routes();
 
 Route::get('/', [StaterkitController::class, 'home'])->name('home');
-Route::get('home', [StaterkitController::class, 'home'])->name('home');
+//Route::get('home', [StaterkitController::class, 'home'])->name('home');
 // Route Components
 Route::get('layouts/collapsed-menu', [StaterkitController::class, 'collapsed_menu'])->name('collapsed-menu');
 Route::get('layouts/boxed', [StaterkitController::class, 'layout_boxed'])->name('layout-boxed');
@@ -43,8 +43,9 @@ Route::get('podcast', [StaterkitController::class, 'podcast'])->name('podcast');
 Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name('layout-blank');
 
 
-//Route::get('/projects/create', 'ProjectController@create' )->name('projects.create');
 
+
+Route::get('proyectos', [ProjectController::class, 'index'])->name('projects.index');
 
 
 
@@ -56,10 +57,10 @@ Route::post('/projects', [ProjectController::class, 'store'])->name('projects.st
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
