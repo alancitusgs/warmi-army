@@ -66,8 +66,27 @@ class ProjectController extends Controller
     ]);
 */
 
+$request_projects = DB::select("SELECT pr.id AS request_id, 
+pr.project_id as project_id, 
+pr.user_id as user_id, 
+p.name as project_name, 
+p.image as project_image, 
+p.shortName as project_shortName, 
+u.name as user_name, 
+u.lastName user_lastName, 
+u.email AS user_email, 
+u.career AS user_career, 
+u.image AS user_image,
+u.lookingFor as user_looking 
+FROM project_requests pr INNER JOIN projects p ON p.id = pr.project_id INNER JOIN users u ON u.id = pr.user_id 
+WHERE pr.project_id IN (SELECT project_id FROM project_user WHERE user_id = ".auth()->user()->id." GROUP BY project_id) AND pr.state = 0 
+");
+$numRequest = sizeof($request_projects);
 
-return view('projects/index')->with(compact('projects','usersProjects'));
+//return view('projects/index')->with(compact('projects','usersProjects'));
+
+return view('projects/index')->with(compact('projects','usersProjects','request_projects','numRequest'));
+
     }
 
 
@@ -90,50 +109,65 @@ return view('projects/index')->with(compact('projects','usersProjects'));
     public function store(Request $request)
     {
 
-        // dd(  $request['imagen']->store('upload-recetas', 'public') );
-
-
-        // validación
+           // validación
         $data = $request->validate([
             'name' => 'required',
             'description' => 'required',
             'goals' => 'required',
-         'image' => 'required|image',
-          'user_id' => 'required'
+            'image' => 'required|image',
+            'user_id' => 'required'
+            
 
 
 
         ]);
 
         // obtener la ruta de la imagen
-       $ruta_imagen = $request['image']->store('upload-project', 'public');
+            $ruta_imagen = $request['image']->store('upload-project', 'public');
 
         // Resize de la imagen
-      $img = Image::make( public_path("storage/{$ruta_imagen}"))->fit(1000, 550);
-        $img->save();
+            $img = Image::make( public_path("storage/{$ruta_imagen}"))->fit(1000, 550);
+            $img->save();
 
-        // almacenar en la bd (sin modelo)
-        // DB::table('recetas')->insert([
-        //     'titulo' => $data['titulo'],
-        //     'preparacion' => $data['preparacion'],
-        //     'ingredientes' => $data['ingredientes'],
-        //     'imagen' => $ruta_imagen,
-        //     'user_id' => Auth::user()->id,
-        //     'categoria_id' => $data['categoria']
-        // ]);
 
-               DB::table('projects')->insert([
+        $newProjectId =  DB::table('projects')->insertGetId([
              'name' => $data['name'],
              'description' => $data['description'],
              'goals' => $data['goals'],
              'image' => $data['image'],
-           'image' => $ruta_imagen,
-           // 'user_id' => Auth::user()->id
+             'image' => $ruta_imagen,
+            'user_id' => Auth::user()->id
             //'user_id' => $data['user_id']
              
         ]);
 
-     return redirect()->action([ProjectController::class, 'index']);
+
+
+
+    
+
+                 // Insertando en tabla circle_project (para cuando un proyecto pertenezca a varios circulos)        
+                 $newProjectInCircle = DB::table('circle_project')->insertGetId(
+                  array('project_id' => $newProjectId, 
+                          'circle_id' => $request->circle_id,
+                          'created_at' => new \dateTime,
+                         'updated_at' => new \dateTime )
+                  );
+  
+              // Insertando en tabla project_user al creador (primer miembro)
+              $id = DB::table('project_user')->insertGetId(
+                      array('user_id' => Auth::user()->id, 
+                              'project_id' => $newProjectId)
+                  );
+  
+              //Se incrementa la cantidad de parcipantes
+              DB::table('projects')
+                      ->where('id', $newProjectId)
+                      ->update(['participants' => 1]);
+
+     //
+ 
+    return redirect()->action([ProjectController::class, 'index']);
 
     
     }

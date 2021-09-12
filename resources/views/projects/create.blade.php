@@ -16,7 +16,7 @@
     <div class="col-md-6 col-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Registrar proyecto - {{ Auth::user()->id }}</h4>
+          <h4 class="card-title">Registrar proyecto </h4>
         </div>
         <div class="card-body">
         <form method="POST" action="{{ route('projects.store') }}" enctype="multipart/form-data" novalidate>
@@ -39,12 +39,12 @@
             </div>
           
             <div class="form-group">
-              <label for="select-country1">Círculo de Integración2</label>
-              <select class="form-control" id="select-country1" required>
+              <label for="select-country1">Círculo de Integración</label>
+              <select class="form-control" id="circle_id" name="circle_id" required>
                 <option value="">Seleccione círculo</option>
-                <option value="usa">Empresarial</option>
-                <option value="uk">Warmi Productiva</option>
-                <option value="france">Capacitación laboral</option>
+                <option value="1">Empresarial</option>
+                <option value="2">Warmi Productiva</option>
+                <option value="3">Capacitación laboral</option>
               </select>
               <div class="valid-feedback">Looks good!</div>
               <div class="invalid-feedback">Por favor ingrese el círculo</div>

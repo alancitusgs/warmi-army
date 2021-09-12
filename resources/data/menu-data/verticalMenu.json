@@ -40,7 +40,7 @@
           "slug": "app-user-view"
         },
         {
-          "url": "app/user/edit",
+          "url": "productiva",
           "name": "Warmi productiva",
           "icon": "circle",
           "slug": "app-user-edit"

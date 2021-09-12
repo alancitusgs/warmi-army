@@ -11,8 +11,9 @@
 
 <div class="col-md-6 col-lg-4">
       <div class="card">
-      <img class="card-img-top" src="/storage/{{ $project->project_image }}" alt="Card image cap" />
-        <div class="card-body">
+        <img class="card-img-top" src="/storage/{{ $project->project_image }}" alt="Card image cap" />
+
+               <div class="card-body">
           <h4 class="card-title">{{ $project->project_name}}</h4>
               <a href="javascript:void(0)" class="btn btn-outline-primary" data-toggle="modal" data-target="#modals-slide-in">Ver más</a>
 

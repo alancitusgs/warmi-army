@@ -43,7 +43,7 @@
     <!-- sales card -->
     <div class="col-md-4 col-sm-6 col-12 kb-search-content">
       <div class="card">
-        <a href="{{asset('page/knowledge-base/category')}}">
+        <a href="{{asset('detailspodcast')}}">
           <img
             src="{{asset('images/illustration/sales.svg')}}"
             class="card-img-top"

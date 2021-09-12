@@ -65,12 +65,12 @@
 
             <tr>
               <td>
-                <a href="#" target="_blank" class="font-weight-bold">{{ $project->project_name}}</a>
+                <a href="{{ $project->project_id}}" target="_blank" class="font-weight-bold">{{ $project->project_name}}</a>
               </td>
            
               <td>
               <span class="badge badge-pill badge-success mr-11">
-                        <i class="" style="background-color: {{ $alertColor }}"></i> {{ (($project->project_participants == 5) ? 'Completado': 'Por completar') }}
+              <i class="" style="background-color: {{ $alertColor }}"></i> {{ (($project->project_participants == 2) ? 'Completado': 'Por completar') }}
                       </span>
               </td>
             <td>

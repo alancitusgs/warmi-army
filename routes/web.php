@@ -34,6 +34,10 @@ Route::get('capacitacion', [StaterkitController::class, 'capacitacion'])->name('
 
 Route::get('empresarial', [StaterkitController::class, 'empresarial'])->name('empresarial');
 
+Route::get('detailspodcast', [StaterkitController::class, 'detailspodcast'])->name('detailspodcast');
+
+Route::get('productiva', [StaterkitController::class, 'productiva'])->name('productiva');
+
 Route::get('yowarmi', [StaterkitController::class, 'yowarmi'])->name('yowarmi');
 
 Route::get('podcast', [StaterkitController::class, 'podcast'])->name('podcast');
@@ -46,6 +50,7 @@ Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name(
 
 
 Route::get('proyectos', [ProjectController::class, 'index'])->name('projects.index');
+
 
 
 
